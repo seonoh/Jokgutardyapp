@@ -1,6 +1,7 @@
 package com.seonoheam.jokgutardyapp
 
 import android.app.FragmentManager
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.ActionBar
@@ -10,14 +11,26 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.seonoheam.jokgutardyapp.adapter.MainAdapter
+import com.seonoheam.jokgutardyapp.db.DBHelper
 import com.seonoheam.jokgutardyapp.model.User
 import com.squareup.otto.Subscribe
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var user : ArrayList<User>? = null
-    private var adapter = MainAdapter(user)
-    private var manager = LinearLayoutManager(this)
+    var mDBHelper: DBHelper = DBHelper(this,"seonoh.db",1,null)
+
+    companion object {
+        var dataList = ArrayList<User>()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        user_list_recyclerView.adapter = null
+        user_list_recyclerView.adapter = MainAdapter(dataList)
+        user_list_recyclerView.adapter.notifyDataSetChanged()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,25 +39,24 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(main_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false);
         getSupportActionBar()?.setDisplayShowTitleEnabled(false);
+        mDBHelper.getResult()
 
 
+         var adapter = MainAdapter(dataList)
+         var manager = LinearLayoutManager(this)
         user_list_recyclerView.adapter = adapter
         user_list_recyclerView.layoutManager = manager
-    }
 
-    override fun onResume() {
-        super.onResume()
 
     }
 
     @Subscribe
     fun receiveData(receiveData:User){
         Toast.makeText(this,"success data ${receiveData.name}",Toast.LENGTH_LONG).show()
-        val dataList = ArrayList<User>()
-        dataList.add(receiveData)
-        user = dataList
+//        dataList.add(receiveData)
+//        user = dataList
         user_list_recyclerView.adapter = null
-        user_list_recyclerView.adapter = MainAdapter(user)
+        user_list_recyclerView.adapter = MainAdapter(dataList)
         user_list_recyclerView.adapter.notifyDataSetChanged()
     }
 
