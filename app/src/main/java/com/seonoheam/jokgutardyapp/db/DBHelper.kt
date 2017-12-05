@@ -37,15 +37,14 @@ class DBHelper : SQLiteOpenHelper {
     fun delete(name: String) {
         // 입력한 이름의 데이터 삭제
         writableDatabase.execSQL("DELETE FROM SEONOH WHERE name='"+name+"';")
+//        writableDatabase.execSQL("DELETE FROM SEONOH WHERE _id="+(position+1)+";")
         writableDatabase.close()
     }
 
     fun getResult(): ArrayList<User> {
         // 읽기가 가능하게 DB 열기
-        var result = ""
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
         val cursor = readableDatabase.rawQuery("SELECT * FROM SEONOH", null)
-        Log.e("SEONOH","${cursor.count}")
 
         while (cursor.moveToNext()) {
            MainActivity.dataList.add(User(cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4)))

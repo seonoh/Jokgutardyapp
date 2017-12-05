@@ -22,6 +22,7 @@
 </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -33,7 +34,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="name"
+            android:text="이름"
             android:textStyle="bold" />
 
         <TextView
@@ -43,7 +44,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="date"
+            android:text="도착시간"
             android:textStyle="bold" />
 
         <TextView
@@ -53,7 +54,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="charge"
+            android:text="지각비"
             android:textStyle="bold" />
 
         <TextView
@@ -63,7 +64,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="reason"
+            android:text="이유"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -72,11 +73,8 @@
         android:id="@+id/user_list_recyclerView"
         android:background="#dadada"
         android:layout_width="match_parent"
-        android:layout_height="300dp"></android.support.v7.widget.RecyclerView>
-    <TextView
-        android:id="@+id/resultLog_tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
 
 
 </LinearLayout>

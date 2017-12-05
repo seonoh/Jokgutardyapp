@@ -15,6 +15,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:text="지각자"
+            android:singleLine="true"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <EditText
@@ -39,6 +40,7 @@
         <EditText
             android:layout_weight="1"
             android:gravity="center"
+            android:singleLine="true"
             android:id="@+id/input_date_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -57,6 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <EditText
+            android:singleLine="true"
+            android:inputType="numberDecimal"
             android:layout_weight="1"
             android:gravity="center"
             android:id="@+id/input_charge_et"
@@ -78,6 +82,7 @@
             android:layout_height="match_parent" />
         <EditText
             android:layout_weight="1"
+            android:singleLine="true"
             android:id="@+id/input_reason_et"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
