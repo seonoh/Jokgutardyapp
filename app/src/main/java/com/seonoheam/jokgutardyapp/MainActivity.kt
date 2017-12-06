@@ -22,6 +22,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+
+
         user_list_recyclerView.adapter = null
         user_list_recyclerView.adapter = MainAdapter(dataList,this)
         user_list_recyclerView.adapter.notifyDataSetChanged()
@@ -30,16 +33,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Bus.getDataBus()?.register(this)
+
+        mDBHelper.dbOpen()
+
         setContentView(R.layout.activity_main)
         setSupportActionBar(main_toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false);
         getSupportActionBar()?.setDisplayShowTitleEnabled(false);
-        mDBHelper.getResult()
 
 
          var adapter = MainAdapter(dataList,this)
          var manager = LinearLayoutManager(this)
+
         user_list_recyclerView.adapter = adapter
         user_list_recyclerView.layoutManager = manager
 

@@ -1,6 +1,7 @@
 package com.seonoheam.jokgutardyapp.db
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -34,20 +35,25 @@ class DBHelper : SQLiteOpenHelper {
         writableDatabase.close()
     }
 
-    fun delete(name: String) {
+    fun delete(id:Int) {
         // 입력한 이름의 데이터 삭제
-        writableDatabase.execSQL("DELETE FROM SEONOH WHERE name='"+name+"';")
+        writableDatabase.execSQL("DELETE FROM SEONOH WHERE _id="+id+";")
 //        writableDatabase.execSQL("DELETE FROM SEONOH WHERE _id="+(position+1)+";")
         writableDatabase.close()
     }
+    companion object {
+         lateinit var cursor : Cursor
+    }
 
-    fun getResult(): ArrayList<User> {
+    fun dbOpen(): ArrayList<User> {
         // 읽기가 가능하게 DB 열기
         // DB에 있는 데이터를 쉽게 처리하기 위해 Cursor를 사용하여 테이블에 있는 모든 데이터 출력
-        val cursor = readableDatabase.rawQuery("SELECT * FROM SEONOH", null)
+//        val cursor = readableDatabase.rawQuery("SELECT * FROM SEONOH", null)
+         cursor = readableDatabase.rawQuery("SELECT * FROM SEONOH", null)
 
         while (cursor.moveToNext()) {
-           MainActivity.dataList.add(User(cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4)))
+           MainActivity.dataList.add(User(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(3),cursor.getString(4)))
+        Log.e("SEONOH",cursor.getString(0))
         }
 
         return MainActivity.dataList

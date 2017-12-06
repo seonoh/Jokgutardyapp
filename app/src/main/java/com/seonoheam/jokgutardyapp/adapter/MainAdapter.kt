@@ -28,7 +28,10 @@ class MainAdapter(var dataList : ArrayList<User>?,var context:Context ): Recycle
         holder?.itemView?.delete_item?.setOnClickListener {
             Toast.makeText(holder.itemView.context,"$position 번째 아이템 클릭 확인", Toast.LENGTH_LONG).show()
             dataList?.removeAt(position)
-            mDBHelper.delete(holder?.itemView.name_tv.text.toString())
+//            mDBHelper.delete(holder?.itemView.name_tv.text.toString())
+//            mDBHelper.delete(holder?.itemView.name_tv.text.toString())
+            mDBHelper.delete(dataList!![position].id)
+            dataList?.removeAt(position)
             notifyDataSetChanged()
 
         }

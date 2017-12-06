@@ -32,7 +32,9 @@ class InputDialogFragment : DialogFragment() {
             mDBHelper.insert(     view.input_name_et.text.toString(),view.input_date_et.text.toString()
                                                 ,view.input_charge_et.text.toString().toInt(),view.input_reason_et.text.toString() )
 
-            val user = User(  view.input_name_et.text.toString(),view.input_date_et.text.toString()
+
+
+            val user = User(  0,view.input_name_et.text.toString(),view.input_date_et.text.toString()
                     ,view.input_charge_et.text.toString().toInt(),view.input_reason_et.text.toString())
             MainActivity.dataList.add(user)
 
