@@ -1,6 +1,7 @@
 package com.seonoheam.jokgutardyapp.adapter
 
 import android.content.Context
+import android.database.Cursor
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.item_list.view.*
  */
 class MainAdapter(var dataList : ArrayList<User>?,var context:Context ): RecyclerView.Adapter<MainViewHolder>(){
 
+    lateinit var cursor:Cursor
     var mDBHelper: DBHelper = DBHelper(context,"seonoh.db",1,null)
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainViewHolder = MainViewHolder(LayoutInflater
@@ -27,11 +29,14 @@ class MainAdapter(var dataList : ArrayList<User>?,var context:Context ): Recycle
         holder?.toBind(holder,position,dataList)
         holder?.itemView?.delete_item?.setOnClickListener {
             Toast.makeText(holder.itemView.context,"$position 번째 아이템 클릭 확인", Toast.LENGTH_LONG).show()
-            dataList?.removeAt(position)
-//            mDBHelper.delete(holder?.itemView.name_tv.text.toString())
-//            mDBHelper.delete(holder?.itemView.name_tv.text.toString())
-            mDBHelper.delete(dataList!![position].id)
-            dataList?.removeAt(position)
+            cursor = mDBHelper.readableDatabase.rawQuery("SELECT * FROM SEONOH", null)
+
+            while (cursor.moveToNext()){
+                if(cursor.getInt(0) == dataList!![position].id){
+                    mDBHelper.delete(cursor.getInt(0))
+                    dataList?.removeAt(position)
+                }
+            }
             notifyDataSetChanged()
 
         }
